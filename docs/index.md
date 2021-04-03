@@ -1,12 +1,10 @@
-## Welcome to GitHub Pages
+## Advanced Mathematics
 
-You can use the [editor on GitHub](https://github.com/vkrice/adv_math/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+Advanced Mathematics for Mechanical Engineers
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Goal
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Goal is 
 
 ```markdown
 Syntax highlighted code block
