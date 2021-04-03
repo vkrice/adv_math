@@ -6,7 +6,6 @@ Advanced Mathematics for Mechanical Engineers
 
 Goal is 
 
-```markdown
 Syntax highlighted code block
 
 # Header 1
