@@ -12,12 +12,72 @@
   <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
   <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
     
+   <script src="../functions.js"></script>
+  <script type="text/javascript">
+    var editors=[], qdata={}, nchoice=0, realtime, ckeditor='ckeditor4';
+    if(getURLVars()['ckeditor']=='ck4') LoadJSs(["https://cdn.ckeditor.com/4.15.1/full-all/ckeditor.js"]); 
+    LoadJSs(["Login.js", "myconfig.js", "IO.js", "UserManagement.js","Q.js"]); //Load our style and JS files
+    firebase.initializeApp(firebaseConfig); var db = firebase.firestore();
+    window.addEventListener('load', function() { 
+      initApp({}); 
+      db.doc('public/TopLeftMenu').get().then(function(doc) { $('#TopLeft').html(O2Button(doc.data())); });
+    });
+  </script>
+    
 
   </head>
   
+  <script type="text/javascript">
+  
+  function InitialLoad(e) { var c=e.attr('class'); var d=e.data();
+    $('.'+c).css('font-weight','normal'); e.css('font-weight','bold');
+    $('#CollectionID').val(d.col);
+    $('#ContentLeft1').html('<button data-oid=ContentMiddle data-email='+d.email+' onclick="ActivityReport($(this).data());">Activity</button>');
+  }
+ 
+</script>
+  
   <body>
     
-    <button onclick="alert(1);">A</button>
-    <div id=editor>here</div>
+<span id=TopLeft class=BoxBorder> </span>
+    <span id=TopMiddle class=BoxBorderGreen style='text-align:center;'></span>
+    <span style='float:right;' id=Login data-logged=0>Login</span>
+    <div id=TopLine2></div>
+    <hr/>
+    <table border="1" width=100%>
+      <tr >
+      <td width=10% id=ContentLeft valign=top>
+          db<input id=CollectionID value='Q' size=3 />
+
+          <p/>Search By
+          <br/><button onclick="new ListQ({}).ListWhereQ2('a.group','==', $('#group').val()); ">Group</button>
+          <input id=group size=6 class=BoxBorderGreen value=Addition />
+
+          <p/><input id=SearchByHours size=3 class=BoxBorderGreen value=24 />hours
+          <br/><button onclick="var h=$('#SearchByHours').val(), time=new Date().getTime(); new ListQ({}).ListWhereQ2('createdAt','>=',time-h*60*1e3); ">Created</button>
+          <button onclick="var h=$('#SearchByHours').val(), time=new Date().getTime(); new ListQ({}).ListWhereQ2('modifiedAt','>=',time-h*60*60*1e3); ">Modified</button>
+
+        <p/> <button onclick="new ListQ({}).ListOneQ($('#ListByID').val());">ID</button>
+          <input id=ListByID size=6 class=BoxBorderGreen value="6IRcC8xDDICWOqhRjY4H" /> 
+
+        <p/><button onclick="new ListQ({}).ListAllQ({orderBy:'createdAt'}); ">ListAll</button>
+        <button onclick="new ListQ({}).ListAllQ({}); ">ListAll2</button>
+        <p/><button onclick="new ListQ({}).NewQ();">NewQ</button>
+        <p/> 
+        <br/><input type="checkbox" id=Hindi /> Hindi
+
+        <hr/><input id=ListAny size=6 class=BoxBorderGreen value="I" /> 
+        <br/><button onclick="new IO3({col:$('#ListAny').val()}).ListAll('ContentRight');">Any</button>
+        <p/>Editor: <button class=ckeditor onclick="ChangeCKEditor('ck4'); toggleBold('.ckeditor',$(this));">CK4</button>
+                     <button class=ckeditor onclick="ChangeCKEditor('ck5'); toggleBold('.ckeditor',$(this)); ">CK5</button>
+
+        <hr/><div id=ContentLeft1></div>
+      </td> 
+      <td id=ContentMiddle valign=top> </td> 
+      <td width=10% id=ContentRight valign=top></td> 
+
+      </tr>
+    </table>
+    
   </body>
 </html>
